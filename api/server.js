@@ -5,8 +5,8 @@ import path from "path";
 
 
 //testando localmente
-//import dotenv from 'dotenv';
-//dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 // conectando com o banco de dados
 const {Pool} = pkg;
@@ -54,11 +54,20 @@ app.get("/", async (req,res) => {
 
 app.post("/post", async(req,res) =>{
     ultimaOrdem++;
-    const result = await pool.query(
-        "INSERT INTO tarefas (nometarefa, custo, datalimite, ordem) VALUES ($1, $2, $3, $4)",
-        [req.body.nometarefa, req.body.custo, req.body.data, ultimaOrdem]
-    );
-    res.redirect("/")
+    
+    try {
+        const result = await pool.query(
+            "INSERT INTO tarefas (nometarefa, custo, datalimite, ordem) VALUES ($1, $2, $3, $4)",
+            [req.body.nometarefa, req.body.custo, req.body.data, ultimaOrdem]
+        );
+        res.redirect("/")
+    } catch (error) {
+        if (error.code === '23505') { // 23505 é o código de erro para violação de chave única
+            
+            return res.redirect('/?erroDeNome=true');
+        }
+    }
+    
     
 });
 
