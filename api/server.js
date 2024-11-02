@@ -13,17 +13,13 @@ const pool = new Pool({
     },
 });
 
-//config do caminho
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 
 const app = express();
 const port = 3000;
 
 // config do middleware
 app.use(express.static("public"));
-app.set("views", path.join(__dirname, "../views")); 
+app.set("views", path.join(process.cwd(), "views"));
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,8 +29,10 @@ app.get("/", (req,res) => {
 });
 
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+    }); 
+}
 
-export default {app, pool}
+export default app;
