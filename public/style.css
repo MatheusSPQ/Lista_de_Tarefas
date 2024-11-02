@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;    
+    font-family: Roboto-Mono; 
+    line-height: 1.5;
+    background-color: #F8F4E3;
+}
+
+.orange{
+    background-color: #F58F00;
+}
+
+
+.hover:hover {
+    transition: 0.1s;
+    border: dashed #394648; 
+}

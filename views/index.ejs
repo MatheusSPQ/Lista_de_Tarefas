@@ -1,14 +1,222 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
     <title>Document</title>
 </head>
 
-<body>
-    <%= banco %>
+<body class="container">
+
+    <main class="d-flex flex-column shadow-lg p-3 mb-5 bg-white rounded">
+        <h1 class="text-center">Lista de Tarefas</h1>
+        <hr>
+
+
+
+        <% banco.forEach(element=> { %>
+            <% if (parseFloat(element.custo.replace(/[$,]/g, '' ))>1000) { %>
+                <article id="<%= element.id %>" ordem="<%=element.ordem%>"
+                    class="d-flex flex-column shadow-lg p-3 mb-2 rounded hover orange text-start">
+                    <h3 name="<%= element.nometarefa %> ">
+                        NOME: <%= element.nometarefa %>
+                    </h3>
+                    <span name="id">
+                        ID: <%= element.id %>
+                    </span>
+                    <span name="custo">
+                        CUSTO: <%= element.custo %>
+                    </span>
+                    <span name="data">
+                        DATA LIMITE: <%= new Date(element.datalimite).toLocaleDateString('pt-BR', { year: 'numeric' ,
+                            month: '2-digit' , day: '2-digit' }) %>
+                    </span>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex" name="botoesUpDown">
+                            <form action="/up" method="post">
+                                <input type="hidden" name="ordem" value="<%= element.ordem %>">
+                                <button type="submit" class="btn btn-primary m-2">↑</button>
+                            </form>
+                            <form action="/down" method="post">
+                                <input type="hidden" name="ordem" value="<%= element.ordem %>">
+                                <button type="submit" class="btn btn-primary m-2">↓</button>
+                            </form>
+                        </div>
+                        <div class="d-flex" name="butoesEditDelete">
+                            <button name="editbutao" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                onclick="fillEditForm('<%= element.id %>', '<%= element.nometarefa %>', '<%= element.custo %>', '<%= element.datalimite %>')">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+                            <form action="/delete" method="post"
+                                onsubmit="return confirm('Tem certeza que deseja deletar?');">
+                                <input type="hidden" name="id" value="<%= element.id %>">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+
+                </article>
+                <% } else{ %>
+                    <article id="<%= element.id %>" ordem="<%=element.ordem%>"
+                        class="d-flex flex-column shadow-lg p-3 mb-2 rounded hover text-start">
+                        <h3 name="<%= element.nometarefa %> ">
+                            NOME: <%= element.nometarefa %>
+                        </h3>
+                        <span name="id">
+                            ID: <%= element.id %>
+                        </span>
+                        <span name="custo">
+                            CUSTO: <%= element.custo %>
+                        </span>
+                        <span name="data">
+                            DATA LIMITE: <%= new Date(element.datalimite).toLocaleDateString('pt-BR', { year: 'numeric'
+                                , month: '2-digit' , day: '2-digit' }) %>
+                        </span>
+
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex" name="botoesUpDown">
+                                <form action="/up" method="post">
+                                    <input type="hidden" name="ordem" value="<%= element.ordem %>">
+                                    <button type="submit" class="btn btn-primary m-2">↑</button>
+                                </form>
+                                <form action="/down" method="post">
+                                    <input type="hidden" name="ordem" value="<%= element.ordem %>">
+                                    <button type="submit" class="btn btn-primary m-2">↓</button>
+                                </form>
+                            </div>
+                            <div class="d-flex" name="butoesEditDelete">
+                                <button name="editbutao" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editModal"
+                                    onclick="fillEditForm('<%= element.id %>', '<%= element.nometarefa %>', '<%= element.custo %>', '<%= element.datalimite %>')">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <form action="/delete" method="post"
+                                    onsubmit="return confirm('Tem certeza que deseja deletar?');">
+                                    <input type="hidden" name="id" value="<%= element.id %>">
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+
+                    </article>
+                    <% } %>
+                        <% }) %>
+                            <button class="btn btn-success m-2" data-bs-toggle="modal"
+                                data-bs-target="#addModal">+</button>
+
+
+                            <!-- PopUps-->
+                            <div name="addFormPopUp" class="modal fade" id="addModal" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Adicionar Tarefa</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form class="d-flex flex-column" action="post" method="post">
+                                                <input name="nometarefa" type="text"
+                                                    class="form-control form-control-lg m-2"
+                                                    placeholder="Nome da Tarefa" required>
+                                                <input name="custo" type="number" class="form-control m-2"
+                                                    placeholder="Custo Ex: 29.99" required step="0.01">
+                                                <input name="data" type="date" class="form-control m-2"
+                                                    placeholder="22/10/2024" required>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-success m-2">+</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal de Edição -->
+                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel">Editar Tarefa</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="editForm" action="/edit" method="post">
+                                                <input type="hidden" name="id" id="editTaskId">
+                                                <div class="mb-3">
+                                                    <label for="editTaskName" class="form-label">Nome da
+                                                        Tarefa</label>
+                                                    <input type="text" class="form-control" id="editTaskName"
+                                                        name="nometarefa" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="editTaskCost" class="form-label">Custo</label>
+                                                    <input type="number" class="form-control" id="editTaskCost"
+                                                        name="custo" step="0.01" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="editTaskDate" class="form-label">Data
+                                                        Limite</label>
+                                                    <input type="date" class="form-control" id="editTaskDate"
+                                                        name="data" required>
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" id="saveButton"
+                                                        class="btn btn-success">Salvar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        <% if (erroDeNome) { %>
+            alert('Já existe uma tarefa com esse nome. Por favor, escolha um nome diferente.');
+            <% } %>
+
+            // Função para preencher o formulário
+            function fillEditForm(id, nome, custo, data) {
+                document.getElementById('editTaskId').value = id;
+                document.getElementById('editTaskName').value = nome;
+                document.getElementById('editTaskCost').value = parseFloat(custo.replace(/[$,]/g, '')).toFixed(2); // Mantém duas casas decimais
+                document.getElementById('editTaskDate').value = formatDate(data); // Formata a data para o formato YYYY-MM-DD
+            }
+
+        function formatDate(dateString) {
+            console.log(dateString);
+            const date = new Date(dateString); // Converte a string de data para um objeto Date
+            const ano = date.getFullYear();
+            const mes = String(date.getMonth() + 1).padStart(2, '0'); // Adiciona 1 porque os meses começam do zero
+            const dia = String(date.getDate()).padStart(2, '0');
+
+            return `${ano}-${mes}-${dia}`; // Retorna a data no formato YYYY-MM-DD
+        }
+
+    </script>
+
+
+
 </body>
 
 </html>
