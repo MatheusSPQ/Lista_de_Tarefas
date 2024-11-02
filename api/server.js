@@ -5,8 +5,8 @@ import path from "path";
 
 
 //testando localmente
-import dotenv from 'dotenv';
-dotenv.config();
+//import dotenv from 'dotenv';
+//dotenv.config();
 
 // conectando com o banco de dados
 const {Pool} = pkg;
@@ -22,8 +22,10 @@ const port = 3000;
 // config do middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
 app.set("views", path.join(process.cwd(), "./views"));
 app.set("view engine", "ejs");
+app.use(express.static(path.join(process.cwd(), "./public")));
 
 
 
