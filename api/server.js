@@ -2,15 +2,18 @@ import express from "express";
 import bodyParser from "body-parser";
 import pkg from "pg";
 import path from "path";
-import { fileURLToPath } from "url";
+
+
+//testando localmente
+import dotenv from 'dotenv';
+dotenv.config();
 
 // conectando com o banco de dados
 const {Pool} = pkg
+console.log(process.env.DATABASE_URL);
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-    rejectUnauthorized: false,  
-    },
+    ssl:false,
 });
 
 
@@ -19,7 +22,7 @@ const port = 3000;
 
 // config do middleware
 app.use(express.static("public"));
-app.set("views", path.join(process.cwd(), "views"));
+app.set("views", path.join(process.cwd(), "./views"));
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", async (req,res) => {
     try {
         const result = await pool.query("SELECT * FROM tarefas");
-        res.render("/index.ejs",{banco: result.rows});
+        res.render("index.ejs",{banco: JSON.stringify(result.rows)});
     } catch (error) {
         console.error(error);
         res.status(500).send("Erro no banco");
