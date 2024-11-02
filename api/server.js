@@ -24,8 +24,14 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req,res) => {
-    res.render("index.ejs");
+app.get("/", async (req,res) => {
+    try {
+        const result = await pool.query("SELECT * FROM tarefas");
+        res.render("/index.ejs",{banco: result.rows});
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erro no banco");
+    }
 });
 
 
