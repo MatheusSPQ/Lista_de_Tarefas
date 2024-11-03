@@ -1,6 +1,6 @@
 # Lista de Tarefas 🗂️✅
 
-Bem-vindo ao **Lista de Tarefas**! Este projeto é uma aplicação web desenvolvida para gerenciar tarefas de forma eficiente. Aqui você pode cadastrar, editar e excluir suas tarefas, além de organizar sua lista conforme sua necessidade.
+**Lista de Tarefas**! Este projeto é uma aplicação web desenvolvida para gerenciar tarefas de forma eficiente. Aqui você pode cadastrar, editar e excluir suas tarefas, além de organizar sua lista conforme sua necessidade.
 
 ## Funcionalidades 🚀
 
@@ -58,6 +58,7 @@ Tabela: **Tarefas**
 
    ```bash
    git clone https://github.com/MatheusSPQ/Lista_de_Tarefas.git
+   cd Lista_de_Tarefas
    ```
 
 2. Instale as dependências:
