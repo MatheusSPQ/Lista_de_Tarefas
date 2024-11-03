@@ -38,10 +38,10 @@ Tabela: **Tarefas**
 
 | Campo                   | Tipo           |
 | ----------------------- | -------------- |
-| dd | Chave Primária |
-| nometarefa          | Texto          |
+| id | Chave Primária |
+| nomeTarefa          | Texto          |
 | custo                   | Número (R$)    |
-| datalimite             | Data           |
+| dataLimite             | Data           |
 | ordem   | Numérico       |
 
 ## Tecnologias Utilizadas 💻
