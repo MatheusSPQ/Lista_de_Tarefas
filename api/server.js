@@ -5,8 +5,8 @@ import path from "path";
 
 
 //testando localmente
-import dotenv from 'dotenv';
-dotenv.config();
+//import dotenv from 'dotenv';
+//dotenv.config();
 
 // conectando com o banco de dados
 const {Pool} = pkg;
