@@ -40,7 +40,7 @@ app.get("/", async (req,res) => {
         const result = await pool.query("SELECT * FROM tarefas ORDER BY ordem DESC");
         if (result.rowCount === 0) {
             // Se não houver tarefas, renderiza a view sem tarefas
-            return res.render("index.ejs", { banco: [], erroDeNome: false }); // ou true, dependendo do que você deseja
+            return res.render("index.ejs", { banco: [], erroDeNome: false });
         }
         ultimaOrdem = result.rows[0].ordem; // o unumero que representa  ordem da ulima tarefa
         tarefas = result.rows;
@@ -102,7 +102,7 @@ app.post("/edit", async(req,res) =>{
         console.error('Erro ao editar:', error);
     
         // Verifica se o erro é uma violação de chave única
-        if (error.code === '23505') { // 23505 é o código de erro para violação de chave única
+        if (error.code === '23505') { 
             
             return res.redirect('/?erroDeNome=true');
         } else {
@@ -114,7 +114,7 @@ app.post("/edit", async(req,res) =>{
 app.post("/up", async (req, res) => {
     const currentOrder = parseInt(req.body.ordem);
     try {
-        // 1. Identificar a tarefa que está acima (com número de ordem maior e mais próximo do atual)
+        // Identificar a tarefa que está acima (com número de ordem maior e mais próximo do atual)
         const resultAbove = await pool.query(
             "SELECT * FROM tarefas WHERE ordem > $1 ORDER BY ordem ASC LIMIT 1",
             [currentOrder]
@@ -128,11 +128,11 @@ app.post("/up", async (req, res) => {
         const taskAbove = resultAbove.rows[0];
         const newOrder = taskAbove.ordem;
 
-        // 2. Trocar a ordem entre a tarefa atual e a tarefa acima
+        //  Trocar a ordem entre a tarefa atual e a tarefa acima
         await pool.query("UPDATE tarefas SET ordem = $1 WHERE ordem = $2", [newOrder, currentOrder]);
         await pool.query("UPDATE tarefas SET ordem = $1 WHERE id = $2", [currentOrder, taskAbove.id]);
 
-        // 3. Redirecionar de volta para a página principal
+        // Redirecionar de volta para a página principal
         res.redirect('/');
     } catch (error) {
         console.error("Erro ao trocar a ordem:", error);
@@ -145,7 +145,7 @@ app.post("/down", async (req, res) => {
     const currentOrder = parseInt(req.body.ordem);
 
     try {
-        // 1. Identificar a tarefa que está abaixo (com número de ordem menor e mais próximo do atual)
+        // Identificar a tarefa que está abaixo (com número de ordem menor e mais próximo do atual)
         const resultBelow = await pool.query(
             "SELECT * FROM tarefas WHERE ordem < $1 ORDER BY ordem DESC LIMIT 1",
             [currentOrder]
@@ -159,11 +159,11 @@ app.post("/down", async (req, res) => {
         const taskBelow = resultBelow.rows[0];
         const newOrder = taskBelow.ordem;
 
-        // 2. Trocar a ordem entre a tarefa atual e a tarefa abaixo
+        // Trocar a ordem entre a tarefa atual e a tarefa abaixo
         await pool.query("UPDATE tarefas SET ordem = $1 WHERE ordem = $2", [newOrder, currentOrder]);
         await pool.query("UPDATE tarefas SET ordem = $1 WHERE id = $2", [currentOrder, taskBelow.id]);
 
-        // 3. Redirecionar de volta para a página principal
+        // Redirecionar de volta para a página principal
         res.redirect('/');
     } catch (error) {
         console.error("Erro ao trocar a ordem:", error);
