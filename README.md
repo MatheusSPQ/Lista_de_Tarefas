@@ -79,7 +79,7 @@ Tabela: **Tarefas**
 
 ## Acesse a Aplicação 🌐
 
-Experimente a aplicação online em: [Sistema Lista de Tarefas](https://lista-de-tarefas-inky-ten.vercel.app/)
+Experimente a aplicação online em: [Sistema Lista de Tarefas](https://lista-de-tarefas-dl3dx2qd3-daawnts-projects.vercel.app/)
 
 ## Contribuições 🤝
 
