@@ -1,6 +1,6 @@
-# Sistema Lista de Tarefas 🗂️✅
+# Lista de Tarefas 🗂️✅
 
-Bem-vindo ao **Sistema Lista de Tarefas**! Este projeto é uma aplicação web desenvolvida para gerenciar tarefas de forma eficiente. Aqui você pode cadastrar, editar e excluir suas tarefas, além de organizar sua lista conforme sua necessidade.
+Bem-vindo ao **Lista de Tarefas**! Este projeto é uma aplicação web desenvolvida para gerenciar tarefas de forma eficiente. Aqui você pode cadastrar, editar e excluir suas tarefas, além de organizar sua lista conforme sua necessidade.
 
 ## Funcionalidades 🚀
 
@@ -25,7 +25,7 @@ Bem-vindo ao **Sistema Lista de Tarefas**! Este projeto é uma aplicação web d
 
 - Permite a inclusão de uma nova tarefa informando apenas o "Nome da Tarefa", "Custo" e "Data Limite".
 - Campos restantes são gerados automaticamente.
-- O novo registro é adicionado ao final da lista.
+- O novo registro é adicionado ao início da lista.
 
 ### Reordenação das Tarefas
 
@@ -57,8 +57,7 @@ Tabela: **Tarefas**
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/sistema-lista-tarefas.git
-   cd sistema-lista-tarefas
+   git clone https://github.com/MatheusSPQ/Lista_de_Tarefas.git
    ```
 
 2. Instale as dependências:
@@ -79,7 +78,7 @@ Tabela: **Tarefas**
 
 ## Acesse a Aplicação 🌐
 
-Experimente a aplicação online em: [Sistema Lista de Tarefas](https://lista-de-tarefas-dl3dx2qd3-daawnts-projects.vercel.app/)
+Experimente a aplicação online em: [Lista de Tarefas](https://lista-de-tarefas-dl3dx2qd3-daawnts-projects.vercel.app/)
 
 ## Contribuições 🤝
 
