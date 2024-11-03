@@ -38,11 +38,11 @@ Tabela: **Tarefas**
 
 | Campo                   | Tipo           |
 | ----------------------- | -------------- |
-| Identificador da tarefa | Chave Primária |
-| Nome da tarefa          | Texto          |
-| Custo                   | Número (R$)    |
-| Data limite             | Data           |
-| Ordem de apresentação   | Numérico       |
+| dd | Chave Primária |
+| nometarefa          | Texto          |
+| custo                   | Número (R$)    |
+| datalimite             | Data           |
+| ordem   | Numérico       |
 
 ## Tecnologias Utilizadas 💻
 
