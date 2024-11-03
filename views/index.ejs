@@ -11,9 +11,9 @@
     <title>Lista de Tarefas</title>
 </head>
 
-<body class="container">
+<body class="d-flex flex-column  align-items-center container">
 
-    <main class="d-flex flex-column shadow-lg p-3 mb-5 bg-white rounded">
+    <main class="d-flex flex-column shadow-lg p-3 mb-5 bg-white rounded container">
         <h1 class="text-center">Lista de Tarefas</h1>
         <hr>
 
@@ -24,7 +24,7 @@
                 <article id="<%= element.id %>" ordem="<%=element.ordem%>"
                     class="d-flex flex-column shadow-lg p-3 mb-2 rounded hover orange text-start">
                     <h3 name="<%= element.nometarefa %> ">
-                        NOME: <%= element.nometarefa %>
+                        <%= element.nometarefa %>
                     </h3>
                     <span name="id">
                         ID: <%= element.id %>
@@ -48,11 +48,17 @@
                             </form>
                         </div>
                         <div class="d-flex" name="butoesEditDelete">
-                            <button name="editbutao" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#editModal"
-                                onclick="fillEditForm('<%= element.id %>', '<%= element.nometarefa %>', '<%= element.custo %>', '<%= element.datalimite %>')">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
+                            <div>
+                                <button name="editbutao" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editModal"
+                                    onclick="fillEditForm('<%= element.id %>', '<%= element.nometarefa %>', '<%= element.custo %>', '<%= element.datalimite %>')">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+
+                            </div>
+
+
+
                             <form action="/delete" method="post"
                                 onsubmit="return confirm('Tem certeza que deseja deletar?');">
                                 <input type="hidden" name="id" value="<%= element.id %>">
@@ -71,7 +77,7 @@
                     <article id="<%= element.id %>" ordem="<%=element.ordem%>"
                         class="d-flex flex-column shadow-lg p-3 mb-2 rounded hover text-start">
                         <h3 name="<%= element.nometarefa %> ">
-                            NOME: <%= element.nometarefa %>
+                            <%= element.nometarefa %>
                         </h3>
                         <span name="id">
                             ID: <%= element.id %>
@@ -96,11 +102,16 @@
                                 </form>
                             </div>
                             <div class="d-flex" name="butoesEditDelete">
-                                <button name="editbutao" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#editModal"
-                                    onclick="fillEditForm('<%= element.id %>', '<%= element.nometarefa %>', '<%= element.custo %>', '<%= element.datalimite %>')">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
+                                <div>
+                                    <button name="editbutao" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#editModal"
+                                        onclick="fillEditForm('<%= element.id %>', '<%= element.nometarefa %>', '<%= element.custo %>', '<%= element.datalimite %>')">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                </div>
+
+
+
                                 <form action="/delete" method="post"
                                     onsubmit="return confirm('Tem certeza que deseja deletar?');">
                                     <input type="hidden" name="id" value="<%= element.id %>">
@@ -191,26 +202,34 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        <% if (erroDeNome) { %>
+        if (erroDeNome) {
             alert('Já existe uma tarefa com esse nome. Por favor, escolha um nome diferente.');
-            <% } %>
+        }
 
-            // Função para preencher o formulário
-            function fillEditForm(id, nome, custo, data) {
-                document.getElementById('editTaskId').value = id;
-                document.getElementById('editTaskName').value = nome;
-                document.getElementById('editTaskCost').value = parseFloat(custo.replace(/[$,]/g, '')).toFixed(2); // Mantém duas casas decimais
-                document.getElementById('editTaskDate').value = formatDate(data); // Formata a data para o formato YYYY-MM-DD
-            }
+        // Função para preencher o formulário
+        function fillEditForm(id, nome, custo, data) {
+            document.getElementById('editTaskId').value = id;
+            document.getElementById('editTaskName').value = nome;
+            document.getElementById('editTaskCost').value = parseFloat(custo.replace(/[$,]/g, '')).toFixed(2); // Mantém duas casas decimais
+            document.getElementById('editTaskDate').value = formatDate(data); // Formata a data para o formato YYYY-MM-DD
+        }
 
         function formatDate(dateString) {
             console.log(dateString);
-            const date = new Date(dateString); // Converte a string de data para um objeto Date
-            const ano = date.getFullYear();
-            const mes = String(date.getMonth() + 1).padStart(2, '0'); // Adiciona 1 porque os meses começam do zero
-            const dia = String(date.getDate()).padStart(2, '0');
 
-            return `${ano}-${mes}-${dia}`; // Retorna a data no formato YYYY-MM-DD
+            // Divide a string em dia, mês e ano
+            const [dia, mes, ano] = dateString.split('/');
+
+            // Cria um novo objeto Date no formato padrão (YYYY-MM-DD)
+            const date = new Date(`${ano}-${mes}-${dia}`);
+
+            // Extrai o ano, mês e dia com zero à esquerda, se necessário
+            const anoFormatado = date.getFullYear();
+            const mesFormatado = String(date.getMonth() + 1).padStart(2, '0');
+            const diaFormatado = String(date.getDate()).padStart(2, '0');
+
+            // Retorna a data no formato desejado: YYYY-MM-DD
+            return `${anoFormatado}-${mesFormatado}-${diaFormatado}`;
         }
 
     </script>

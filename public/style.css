@@ -20,5 +20,6 @@ html, body {
 
 .hover:hover {
     transition: 0.1s;
-    border: dashed #394648; 
+    border: solid skyblue; 
 }
+
