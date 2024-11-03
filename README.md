@@ -46,12 +46,11 @@ Tabela: **Tarefas**
 
 ## Tecnologias Utilizadas 💻
 
-- **Node.js** ![Node.js](https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg)
-- **Express** ![Express](https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg)
-- **EJS** (Embedded JavaScript) ![EJS](https://raw.githubusercontent.com/devicons/devicon/master/icons/ejs/ejs-original.svg)
-- **PostgreSQL** ![PostgreSQL](https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg)
-- **Bootstrap** ![Bootstrap](https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg)
-- **Font Awesome** ![Font Awesome](https://raw.githubusercontent.com/devicons/devicon/master/icons/fontawesome/fontawesome-original.svg)
+- **Node.js** ![Node.js](https://img.icons8.com/color/48/000000/nodejs.png)
+- **Express** ![Express](https://img.icons8.com/color/48/000000/express.png)
+- **EJS** (Embedded JavaScript) ![EJS](https://img.icons8.com/color/48/000000/ejs.png)
+- **PostgreSQL** ![PostgreSQL](https://img.icons8.com/color/48/000000/postgreesql.png)
+- **Bootstrap** ![Bootstrap](https://img.icons8.com/color/48/000000/bootstrap.png)
 
 ## Como Executar o Projeto 🏗️
 
